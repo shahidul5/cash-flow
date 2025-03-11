@@ -13,16 +13,61 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "Allow Cash Flow to use Face ID to secure your financial data."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "USE_BIOMETRIC",
+        "USE_FINGERPRINT",
+        "MEDIA_LIBRARY",
+        "MEDIA_LIBRARY_WRITE_ONLY",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.INTERNET",
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT",
+        "android.permission.ACCESS_MEDIA_LOCATION"
+      ],
+      "package": "com.cashflow.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-file-system",
+        {
+          "filePermissions": "read-write"
+        }
+      ],
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Allow Cash Flow to use Face ID to secure your financial data."
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Allow Cash Flow to access your photos to save exported data.",
+          "savePhotosPermission": "Allow Cash Flow to save exported data to your photos.",
+          "isAccessMediaLocationEnabled": true
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "128cdc10-e383-48d8-821b-600397b95d3b"
+      }
     }
   }
 }
