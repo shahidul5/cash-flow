@@ -72,7 +72,7 @@ const IncomeCategoriesScreen = ({ navigation }) => {
     <View style={[styles.categoryItem, { backgroundColor: theme.cardBackground, borderColor: theme.border }]}>
       <View style={styles.categoryInfo}>
         <View style={[styles.iconContainer, { backgroundColor: item.color || theme.primary }]}>
-          <MaterialCommunityIcons name={item.icon || 'cash'} size={24} color="#FFFFFF" />
+          <MaterialCommunityIcons name={item.icon || 'cash'} size={24} color={theme.white} />
         </View>
         <Text style={[styles.categoryName, { color: theme.text }]}>{item.name}</Text>
         {item.isDefault && (
@@ -90,7 +90,7 @@ const IncomeCategoriesScreen = ({ navigation }) => {
           <MaterialCommunityIcons
             name="pencil"
             size={20}
-            color={item.isDefault ? 'rgba(255,255,255,0.5)' : '#FFFFFF'}
+            color={item.isDefault ? `${theme.white}80` : theme.white}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -101,7 +101,7 @@ const IncomeCategoriesScreen = ({ navigation }) => {
           <MaterialCommunityIcons
             name="delete"
             size={20}
-            color={item.isDefault ? 'rgba(255,255,255,0.5)' : '#FFFFFF'}
+            color={item.isDefault ? `${theme.white}80` : theme.white}
           />
         </TouchableOpacity>
       </View>
@@ -135,7 +135,7 @@ const IncomeCategoriesScreen = ({ navigation }) => {
         style={[styles.addButton, { backgroundColor: theme.primary }]}
         onPress={() => navigation.navigate('AddIncomeCategory')}
       >
-        <MaterialCommunityIcons name="plus" size={24} color="#FFFFFF" />
+        <MaterialCommunityIcons name="plus" size={24} color={theme.white} />
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -176,14 +176,14 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   defaultBadge: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: theme.success,
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: 4,
     marginLeft: 8,
   },
   defaultBadgeText: {
-    color: '#FFFFFF',
+    color: theme.white,
     fontSize: 10,
     fontWeight: 'bold',
   },

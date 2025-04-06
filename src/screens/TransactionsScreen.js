@@ -55,6 +55,11 @@ const TransactionsScreen = ({ navigation }) => {
           )
         );
         break;
+      case 'cash_additions':
+        setFilteredTransactions(
+          transactions.filter(t => t.type === 'cash_addition')
+        );
+        break;
       case 'all':
       default:
         setFilteredTransactions([...transactions]);
@@ -233,6 +238,25 @@ const TransactionsScreen = ({ navigation }) => {
             ]}
           >
             Transfers
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.filterButton,
+            {
+              borderColor: theme.border,
+              backgroundColor: activeFilter === 'cash_additions' ? theme.warning : 'transparent'
+            },
+          ]}
+          onPress={() => setActiveFilter('cash_additions')}
+        >
+          <Text
+            style={[
+              styles.filterText,
+              { color: activeFilter === 'cash_additions' ? theme.white : theme.text },
+            ]}
+          >
+            Cash
           </Text>
         </TouchableOpacity>
       </View>

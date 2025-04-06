@@ -43,6 +43,7 @@ const TransactionCard = ({ transaction }) => {
 
   const isExpense = type === 'expense';
   const isTransfer = category === 'Transfer' || category === 'Bank Transfer';
+  const isCashAddition = type === 'cash_addition';
   const formattedDate = new Date(date).toLocaleDateString();
 
   // Get icon name based on category
@@ -72,10 +73,12 @@ const TransactionCard = ({ transaction }) => {
             ? theme.info
             : isExpense
               ? theme.expense
-              : theme.income
+              : isCashAddition
+                ? theme.warning
+                : theme.income
         }
       ]}>
-        <MaterialCommunityIcons name={iconName} size={20} color="#FFFFFF" />
+        <MaterialCommunityIcons name={iconName} size={20} color={theme.white} />
       </View>
 
       <View style={styles.detailsContainer}>
@@ -94,7 +97,9 @@ const TransactionCard = ({ transaction }) => {
             ? theme.info
             : isExpense
               ? theme.expense
-              : theme.income
+              : isCashAddition
+                ? theme.warning
+                : theme.income
         }
       ]}>
         {isExpense && !isTransfer ? '-' : '+'}{formatCurrency(amount)}

@@ -80,19 +80,19 @@ const HomeScreen = ({ navigation }) => {
           title="Income"
           amount={totalIncome}
           icon="arrow-down-circle"
-          color="#4CAF50"
+          color={theme.income}
         />
         <SummaryCard
           title="Expense"
           amount={totalExpense}
           icon="arrow-up-circle"
-          color="#F44336"
+          color={theme.expense}
         />
         <SummaryCard
           title="Balance"
           amount={balance}
           icon="wallet"
-          color="#2196F3"
+          color={theme.info}
         />
       </View>
 
@@ -179,7 +179,7 @@ const HomeScreen = ({ navigation }) => {
           style={[styles.addTransactionButton, { backgroundColor: theme.primary }]}
           onPress={() => navigation.navigate('AddTransaction')}
         >
-          <Ionicons name="add" size={24} color="#fff" />
+          <Ionicons name="add" size={24} color={theme.white} />
         </TouchableOpacity>
       </View>
     </ScrollView>

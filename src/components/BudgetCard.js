@@ -40,7 +40,7 @@ const BudgetCard = ({ budget, onPress }) => {
       <View style={styles.header}>
         <View style={styles.categoryContainer}>
           <View style={[styles.iconContainer, { backgroundColor: budget.color || getProgressColor() }]}>
-            <MaterialCommunityIcons name={iconName} size={20} color="#FFFFFF" />
+            <MaterialCommunityIcons name={iconName} size={20} color={theme.white} />
           </View>
           <Text style={[styles.category, { color: theme.text }]}>{name}</Text>
         </View>

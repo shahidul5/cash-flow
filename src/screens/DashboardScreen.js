@@ -143,19 +143,19 @@ const DashboardScreen = ({ navigation }) => {
             title="Monthly Income"
             amount={totalIncome}
             icon="arrow-down-circle"
-            color="#4CAF50"
+            color={theme.income}
           />
           <SummaryCard
             title="Monthly Expenses"
             amount={totalExpenses}
             icon="arrow-up-circle"
-            color="#F44336"
+            color={theme.expense}
           />
           <SummaryCard
             title="Cash"
             amount={cashBalance}
             icon="cash"
-            color="#2196F3"
+            color={theme.info}
           />
         </View>
 
@@ -255,7 +255,7 @@ const DashboardScreen = ({ navigation }) => {
                 onPress={() => navigation.navigate('AddTransaction', { type: 'income', paymentMethod: 'cash' })}
               >
                 <View style={[styles.actionIcon, { backgroundColor: theme.income }]}>
-                  <MaterialCommunityIcons name="arrow-down-circle" size={20} color="#FFFFFF" />
+                  <MaterialCommunityIcons name="arrow-down-circle" size={20} color={theme.white} />
                 </View>
                 <Text style={[styles.actionText, { color: theme.text }]}>Add Income</Text>
               </TouchableOpacity>
@@ -264,18 +264,18 @@ const DashboardScreen = ({ navigation }) => {
                 onPress={() => navigation.navigate('AddTransaction', { type: 'expense', paymentMethod: 'cash' })}
               >
                 <View style={[styles.actionIcon, { backgroundColor: theme.expense }]}>
-                  <MaterialCommunityIcons name="arrow-up-circle" size={20} color="#FFFFFF" />
+                  <MaterialCommunityIcons name="arrow-up-circle" size={20} color={theme.white} />
                 </View>
                 <Text style={[styles.actionText, { color: theme.text }]}>Add Expense</Text>
               </TouchableOpacity>
             </View>
-            <View style={styles.quickActions}>
+            <View style={[styles.quickActions, { marginBottom: 8 }]}>
               <TouchableOpacity
                 style={[styles.actionButton, { backgroundColor: theme.card, borderColor: theme.border }]}
                 onPress={() => navigation.navigate('AddCash')}
               >
                 <View style={[styles.actionIcon, { backgroundColor: theme.income }]}>
-                  <MaterialCommunityIcons name="cash-plus" size={20} color="#FFFFFF" />
+                  <MaterialCommunityIcons name="cash-plus" size={20} color={theme.white} />
                 </View>
                 <Text style={[styles.actionText, { color: theme.text }]}>Add Cash</Text>
               </TouchableOpacity>
@@ -284,7 +284,7 @@ const DashboardScreen = ({ navigation }) => {
                 onPress={() => navigation.navigate('BankTab', { screen: 'Transfer' })}
               >
                 <View style={[styles.actionIcon, { backgroundColor: theme.info }]}>
-                  <MaterialCommunityIcons name="bank-transfer" size={20} color="#FFFFFF" />
+                  <MaterialCommunityIcons name="bank-transfer" size={20} color={theme.white} />
                 </View>
                 <Text style={[styles.actionText, { color: theme.text }]}>Transfer</Text>
               </TouchableOpacity>
@@ -370,7 +370,7 @@ const styles = StyleSheet.create({
   actionsContainer: {
     borderRadius: 16,
     padding: 16,
-    marginBottom: 16,
+    marginBottom: 32,
     borderWidth: 1,
   },
   quickActionsTitle: {

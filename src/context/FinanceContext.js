@@ -434,7 +434,7 @@ export const FinanceProvider = ({ children }) => {
   const calculateTotalIncome = (transactionList = transactions) => {
     return transactionList
       .filter(transaction =>
-        transaction.type === 'income' &&
+        transaction.type === 'income' &&  // Only include real income transactions
         transaction.category !== 'Transfer' &&
         transaction.category !== 'Bank Transfer'
       )
@@ -660,7 +660,9 @@ export const FinanceProvider = ({ children }) => {
 
   // Calculate total cash balance
   const calculateCashBalance = () => {
-    const cashIncomeTotal = transactions
+    // Add together:
+    // 1. Income transactions that use cash payment method
+    const incomeTotal = transactions
       .filter(transaction =>
         transaction.type === 'income' &&
         transaction.paymentMethod !== 'bank' &&
@@ -669,6 +671,12 @@ export const FinanceProvider = ({ children }) => {
       )
       .reduce((total, transaction) => total + transaction.amount, 0);
 
+    // 2. Cash addition transactions
+    const cashAdditionTotal = transactions
+      .filter(transaction => transaction.type === 'cash_addition')
+      .reduce((total, transaction) => total + transaction.amount, 0);
+
+    // Subtract cash expenses
     const cashExpenseTotal = transactions
       .filter(transaction =>
         transaction.type === 'expense' &&
@@ -678,7 +686,7 @@ export const FinanceProvider = ({ children }) => {
       )
       .reduce((total, transaction) => total + transaction.amount, 0);
 
-    return cashIncomeTotal - cashExpenseTotal;
+    return incomeTotal + cashAdditionTotal - cashExpenseTotal;
   };
 
   // Calculate total balance (cash + bank accounts)
@@ -686,6 +694,35 @@ export const FinanceProvider = ({ children }) => {
     const cashBalance = calculateCashBalance();
     const bankBalance = getTotalBankBalance();
     return cashBalance + bankBalance;
+  };
+
+  // Add cash without creating an income transaction
+  const addCashBalance = async (amount, note = 'Cash added to wallet') => {
+    // The cash balance is calculated from transactions
+    // We need to store this information somewhere to track it
+    // We'll create a special transaction type that won't be counted as income
+    const newTransaction = {
+      id: uuid.v4(),
+      date: new Date().toISOString(),
+      type: 'cash_addition', // Special type that won't be counted as income
+      amount: parseFloat(amount),
+      category: 'Cash Addition',
+      note: note,
+      paymentMethod: 'cash',
+      bankId: null,
+    };
+
+    setTransactions(prevTransactions => {
+      const updatedTransactions = [newTransaction, ...prevTransactions];
+
+      // Save to AsyncStorage
+      AsyncStorage.setItem(TRANSACTIONS_KEY, JSON.stringify(updatedTransactions))
+        .catch(error => console.error('Error saving transactions:', error));
+
+      return updatedTransactions;
+    });
+
+    return newTransaction;
   };
 
   // Set the notification function from outside
@@ -726,6 +763,7 @@ export const FinanceProvider = ({ children }) => {
     getTotalBankBalance,
     calculateCashBalance,
     calculateTotalBalance,
+    addCashBalance,
     setNotificationFunction,
   };
 

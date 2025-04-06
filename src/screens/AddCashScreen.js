@@ -17,7 +17,7 @@ import { CURRENCY_SYMBOL } from '../utils/currency';
 import { FONTS, SIZES } from '../utils/theme';
 
 const AddCashScreen = ({ navigation }) => {
-  const { addTransaction } = useFinance();
+  const { addCashBalance } = useFinance();
   const { theme, isDarkMode } = useTheme();
   const [amount, setAmount] = useState('');
   const [note, setNote] = useState('');
@@ -36,15 +36,11 @@ const AddCashScreen = ({ navigation }) => {
 
   const handleSubmit = () => {
     if (validateForm()) {
-      // Add a new income transaction with "Cash Addition" category
-      addTransaction({
-        type: 'income',
-        amount: parseFloat(amount),
-        category: 'Cash Addition',
-        note: note || 'Cash added to wallet',
-        paymentMethod: 'cash',
-        bankId: null,
-      });
+      // Use the new function to add cash without recording it as income
+      addCashBalance(
+        parseFloat(amount),
+        note || 'Cash added to wallet'
+      );
       navigation.goBack();
     }
   };
@@ -67,13 +63,13 @@ const AddCashScreen = ({ navigation }) => {
 
           <View style={styles.formGroup}>
             <Text style={[styles.label, { color: theme.text }]}>Amount</Text>
-            <View style={[styles.amountInputContainer, { 
+            <View style={[styles.amountInputContainer, {
               borderColor: errors.amount ? theme.error : theme.border,
               backgroundColor: isDarkMode ? theme.cardBackground : theme.white
             }]}>
               <Text style={[styles.currencySymbol, { color: theme.text }]}>{CURRENCY_SYMBOL}</Text>
               <TextInput
-                style={[styles.amountInput, { 
+                style={[styles.amountInput, {
                   color: theme.text,
                   backgroundColor: 'transparent'
                 }]}
@@ -90,8 +86,8 @@ const AddCashScreen = ({ navigation }) => {
           <View style={styles.formGroup}>
             <Text style={[styles.label, { color: theme.text }]}>Note (Optional)</Text>
             <TextInput
-              style={[styles.noteInput, { 
-                color: theme.text, 
+              style={[styles.noteInput, {
+                color: theme.text,
                 borderColor: theme.border,
                 backgroundColor: isDarkMode ? theme.cardBackground : theme.white
               }]}

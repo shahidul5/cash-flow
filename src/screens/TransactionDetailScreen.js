@@ -78,19 +78,27 @@ const TransactionDetailScreen = ({ navigation, route }) => {
               styles.typeTag,
               {
                 backgroundColor:
-                  transaction.type === 'income' ? theme.income : theme.expense,
+                  transaction.type === 'income'
+                    ? theme.income
+                    : transaction.type === 'cash_addition'
+                      ? theme.warning
+                      : theme.expense,
               },
             ]}
           >
             <Text style={styles.typeText}>
-              {transaction.type === 'income' ? 'Income' : 'Expense'}
+              {transaction.type === 'income'
+                ? 'Income'
+                : transaction.type === 'cash_addition'
+                  ? 'Cash Addition'
+                  : 'Expense'}
             </Text>
           </View>
         </View>
 
         <View style={styles.amountContainer}>
           <Text style={[styles.amountPrefix, { color: theme.text }]}>
-            {transaction.type === 'income' ? '+' : '-'}
+            {transaction.type === 'expense' ? '-' : '+'}
           </Text>
           <Text style={[styles.amount, { color: theme.text }]}>
             {formatCurrency(transaction.amount)}
