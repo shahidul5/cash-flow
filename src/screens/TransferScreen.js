@@ -103,7 +103,7 @@ const TransferScreen = ({ navigation }) => {
         // Record as a transfer note in transaction history
         await addTransaction({
           type: 'expense',
-          amount: 0, // Zero amount as it's just a transfer between banks
+          amount: transferAmount,
           category: 'Bank Transfer',
           note: note || `Transfer from ${bankAccounts.find(b => b.id === fromBankId)?.name || 'bank account'} to ${bankAccounts.find(b => b.id === toBankId)?.name || 'bank account'}`,
           paymentMethod: 'bank',
